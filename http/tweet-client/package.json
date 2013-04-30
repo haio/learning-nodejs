@@ -1,0 +1,5 @@
+{
+  "name" : "tweet-client",
+  "description" : "A http Tweet Client",
+  "version" : "0.0.1"
+}

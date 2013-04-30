@@ -1,0 +1,37 @@
+To control formatting, colors, and other output preferences in a text terminal, you use ANSI escape sequences or codes. These special characters are recognized by the terminal emulator in a standard way.
+
+When you include the characters that surround your text, those characters are obviously not output. These characters are called nonprinting.
+
+Consider, for example, the following sequence:
+
+console.log(‘\033[90m’ + data.replace(/(.*)/g, ‘     $1’) + ‘\033[39m’);
+
+• \033 begins the escape sequence.
+• [ indicates color setting.
+• 90 is the foreground color to bright gray.
+• m wraps up the setting.
+
+You might notice that on the other end you use 39, which resets back to the default terminal color so that you partially colorize text.
+
+You can find a complete table of ANSI escape codes at http://en.wikipedia.org/wiki/ansi_escape_code.
+
+Exploring the fs module
+The fs module allows you to read and write data through a Stream API. Unlike the read
+File and writeFile methods, the allocation of memory doesn’t happen all at once.
+
+Consider the example of a large comma-separated file with millions of rows. Reading the entire file to parse it would mean a large allocation of memory all at once. A much better approach would be to read chunks at a time, look for line endings (“\n”) and parse progressively.
+
+Node Streams are a perfect fit for this, as you’ll read about next.
+
+Streams
+The method fs.createReadStream allows you to create a readable Stream object for a particular file.
+
+To understand the power of streams, consider the difference between the following two examples:
+
+fs.readFile(‘my-file.txt’, function (err, contents){
+  // do something with file
+});
+
+In this case, the callback function that you supply fires after the entire file is read, placed in RAM, and ready to use.
+
+In the following example, chunks of varying sizes are read, and each time a callback is fired:

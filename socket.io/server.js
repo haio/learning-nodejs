@@ -8,6 +8,17 @@ app.listen(3000);
 var io = sio.listen(app)
     , currentSong
     , dj;
+
+function elect(socket) {
+  dj = socket;
+  io.socket.emit('announcement', socket.name + ' is the new DJ');
+  socket.emit('elected!');
+  socket.on('disconnect', function () {
+    dj = null;
+    io.socket.emit('announcement', 'the dj left, next one to join become the dj');
+  });
+}
+
 io.on('connection', function (socket) {
   console.log('someone connected');
 
@@ -20,4 +31,10 @@ io.on('connection', function (socket) {
     socket.broadcast.emit('text', socket.name, msg);
     fn(Date.now());
   });
+
+  if (!dj) {
+    elect(socket);
+  } else {
+    socket.emit('song', currentSong);
+  }
 });

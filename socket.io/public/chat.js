@@ -22,6 +22,7 @@ window.onload = function () {
   $('form').onsubmit = function () {
     var li = addMessage('me', input.value);
     socket.emit('text', input.value, function (date) {
+			console.log(date);
       li.className = 'confirmed';
       li.title = date;
     });

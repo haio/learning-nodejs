@@ -1,13 +1,15 @@
 var express = require('express')
-    , sio = require('socket.io')
+		, app = express()
+		, server = require('http').Server(app)
+		, sio = require('socket.io')
+		, io = sio.listen(server)
 		, request = require('superagent');
 
 /*create app*/
-var app = express.createServer(express.bodyParser(), express.static('public'));
-app.listen(3000);
+app.use(express.static(__dirname + '/public'));
+server.listen(3000);
 
-var io = sio.listen(app)
-		, apiKey = 'bb1814da2a9119fa5197b5e616750fd7'
+var apiKey = 'bb1814da2a9119fa5197b5e616750fd7'
     , currentSong
     , dj;
 
@@ -24,7 +26,6 @@ function elect(socket) {
 
 io.on('connection', function (socket) {
   console.log('someone connected');
-
   socket.on('join', function (name) {
     socket.name = name;
     socket.broadcast.emit('announcement', name + ' join in the chat');

@@ -1,3 +1,2 @@
-/*/node_modules
-mongodb/user-auth/node_modules
+node_modules
 .log

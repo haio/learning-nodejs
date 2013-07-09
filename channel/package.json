@@ -1,0 +1,12 @@
+{
+	"name": "Mini Chat App",
+	"version": "0.0.1",
+	"p-rivate": true,
+	"dependencies": {
+		"express": "3.0.0",
+		"socket.io": ">=0.9.7",
+		"jade": "*",
+		"redis": "0.7.2",
+		"connect-redis": "1.4.x"
+	}
+}

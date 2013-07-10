@@ -9,20 +9,19 @@ html
         script(src='/client.js')
         link(rel='stylesheet', href='/client.css')
     body
-        b Server:=server
+        b Server:#{server}
         br
         if(user)
             b User:
             label#user=user
             a(href='/logout', style='color:blue;text-decoration: underline') Log out
-        div#ask.bordered(style='display: none;')
-            Name:
+        div#ask.bordered(style='display: none;') Name:
             input#name(type='text')
-                a(href='#')
-                    span.join Join!
+            a(href='#')
+                span.join Join!
         div#channel.bordered(style='display: none;')
             #msgs
-                h4 Server:=server
+                h4 Server:#{server}
                 ul
                     li.message(style='display: none;')
                         span.user

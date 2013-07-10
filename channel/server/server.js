@@ -3,7 +3,6 @@
 /*
   Module dependencies
 */
-
 var express = require('express')
     , http = require('http')
     , path = require('path')
@@ -15,7 +14,7 @@ var app = exports.app =  express()
     , RedisStore = require('connect-redis')(express)
     , redisClient = redis.createClient()
     , sessionStore = exports.sessionStore = new RedisStore({ client: redisClient })
-		, cookieParser = exports.cookieParser = express.cookieParser('cookie secret');
+    , cookieParser = exports.cookieParser = express.cookieParser('cookie secret');
 
 /*
   Configure express
@@ -34,11 +33,10 @@ app.configure(function () {
     app.use(express.static(path.join( __dirname, './../app' )));
 });
 
+server.listen(app.get('port'), function () {
+    console.log("Express server listening on " + '0.0.0.0:3000');
+});
+
 require('./routes');
 
 require('./sockets');
-
-server.listen(app.get('port'), function () {
-    var serverName = process.env.VCAP_APP_HOST ? process.env.VCAP_APP_HOST + ":" + process.env.VCAP_APP_PORT : 'localhost:3000';
-    console.log("Express server listening on " + serverName);
-});

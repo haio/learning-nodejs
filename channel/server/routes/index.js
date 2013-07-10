@@ -1,10 +1,9 @@
 'use strict';
 
 var app = require('../server').app
-	, main = require('./main');
-
+    , main = require('./main');
 /*
- 	routes
+ routes
  */
 app.get('/', main.index);
 app.post('/users', main.users);

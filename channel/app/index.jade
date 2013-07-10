@@ -1,0 +1,37 @@
+!!!5
+    html
+        head
+            meta(charset='utf-8')
+            title= server
+            script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+            script(src='http://datejs.googlecode.com/svn/trunk/build/date.js')
+            script(src='/socket.io/socket.io.js')
+            script(src='/client.js')
+            link(rel='stylesheet', href='/client.css')
+        body
+            b Server:=server
+            br
+            if(user)
+                b User:
+                label#user=user
+                a(href='/logout', style='color:blue;text-decoration: underline') Log out
+            div#ask.bordered(style='display: none;')
+                Name:
+                input#name(type='text')
+                    a(href='#')
+                        span.join Join!
+            div#channel.bordered(style='display: none;')
+                #msgs
+                    h4 Server:=server
+                    ul
+                        li.message(style='display: none;')
+                            span.user
+                            span.message
+                            span.time
+                        li.message(style='display: none;')
+                            span.user &nbsp;
+                            span.message
+                            span.time
+                #input
+                    form
+                        input#message(type='text')

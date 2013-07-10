@@ -25,6 +25,7 @@ var sessionSockets = new SessionSockets(io, sessionStore, cookieParser);
 var sub = redis.createClient();
 var pub = redis.createClient();
 sub.subscribe('chat');
+sub.subscribe('join');
 sessionSockets.on('connection', function (err, socket, session) {
     if(!session.user) return;
     socket.on('chat', function (data) {
@@ -35,14 +36,20 @@ sessionSockets.on('connection', function (err, socket, session) {
 
     socket.on('join', function () {
         var reply = JSON.stringify({action:'control', user:session.user, msg:' joined the channel' });
-        pub.publish('chat', reply);
+        pub.publish('join', reply);
     });
     /*
      Use Redis' 'sub' (subscriber) client to listen to any message from Redis to server.
      When a message arrives, send it back to browser using socket.io
     */
-    sub.on('message', function (channel, message) {
-        console.log('channel----', channel);
-        socket.emit(channel, message);
+    sub.on('message', function (action, message) {
+        console.log('*****', action);
+		if (action === 'join') {
+            console.log(action, 'join');
+            socket.broadcast.emit('chat', message);
+        } else {
+            console.log(action, 'chat')
+            socket.emit('chat', message);
+        } 
     });
 });

@@ -33,8 +33,8 @@ $(document).ready(function () {
          Connect to socket.io on the server.
          */
         var host = window.location.host.split(':')[0];
-        var socket = io.connect('http://' + host, {reconnect:false, 'try multiple transports':false});
-				//var socket = io.connect();
+        //var socket = io.connect('http://' + host, {reconnect:false, 'try multiple transports':false});
+				var socket = io.connect();
         var intervalID;
         var reconnectCount = 0;
 
@@ -87,6 +87,7 @@ $(document).ready(function () {
         $.post('/users', {"user":name})
             .success(function () {
                 // send join message
+                console.log('success....');
                 socket.emit('join', JSON.stringify({}));
             }).error(function () {
                 console.log("error");

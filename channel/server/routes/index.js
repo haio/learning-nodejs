@@ -1,14 +1,11 @@
-/*
- * GET home page.
- */
-var serverName = process.env.HOST ? process.env.HOST + ":" + process.env.PORT : 'localhost:3000';
+'use strict';
 
-exports.index = function (req, res) {
-    //save user from previous session (if it exists)
-    var user = req.session.user;
-    //regenerate new session & store user from previous session (if it exists)
-    req.session.regenerate(function (err) {
-        req.session.user = user;
-        res.render('index', { title:'Express', server:serverName, user:req.session.user});
-    });
-};
+var app = require('../server').app
+	, main = require('./main');
+
+/*
+ 	routes
+ */
+app.get('/', main.index);
+app.post('/users', main.users);
+app.get('/logout', main.logput);

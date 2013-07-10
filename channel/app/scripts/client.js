@@ -34,6 +34,7 @@ $(document).ready(function () {
          */
         var host = window.location.host.split(':')[0];
         var socket = io.connect('http://' + host, {reconnect:false, 'try multiple transports':false});
+				//var socket = io.connect();
         var intervalID;
         var reconnectCount = 0;
 
@@ -45,7 +46,7 @@ $(document).ready(function () {
         });
         socket.on('disconnect', function () {
             console.log('disconnect');
-            intervalID = setInterval(tryReconnect, 4000);
+            //intervalID = setInterval(tryReconnect, 4000);
         });
         socket.on('connect_failed', function () {
             console.log('connect_failed');
@@ -83,7 +84,7 @@ $(document).ready(function () {
         /*
          When the user Logs in, send a HTTP POST to server w/ user name.
          */
-        $.post('/user', {"user":name})
+        $.post('/users', {"user":name})
             .success(function () {
                 // send join message
                 socket.emit('join', JSON.stringify({}));

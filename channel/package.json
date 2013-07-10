@@ -4,6 +4,7 @@
   "dependencies": {
 		"express": "3.0.0",
 		"socket.io": ">=0.9.7",
+		"session.socket.io": "0.1.6",
 		"jade": "*",
 		"redis": "0.7.2",
 		"connect-redis": "1.4.x"

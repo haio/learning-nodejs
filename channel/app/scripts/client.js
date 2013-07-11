@@ -85,9 +85,10 @@ $(document).ready(function () {
          When the user Logs in, send a HTTP POST to server w/ user name.
          */
         $.post('/users', {"user":name})
-            .success(function () {
+            .success(function (data) {
                 // send join message
-                console.log('success....');
+                var html = ['<b>User:</b>', '<label id="user">', data.user, '</label>', '<a href="/logout" style="color:blue;text-decoration: underline">Log out</a>'].join('');
+                if(!$('#user').length) $(html).insertBefore($('#ask'));
                 socket.emit('join', JSON.stringify({}));
             }).error(function () {
                 console.log("error");

@@ -13,8 +13,9 @@ exports.index = function (req, res) {
 };
 
 exports.users = function (req, res) {
-    req.session.user = req.body.user;
-    res.json({ error: '' });
+    var user = req.body.user;
+    req.session.user = user;
+    res.json({ user: user });
 }
 
 exports.logput = function (req, res) {

@@ -1,4 +1,4 @@
-var net = require('net');
+gar net = require('net');
 
 var count  = 0
       users = {};
@@ -22,6 +22,8 @@ var server = net.createServer(function (conn) {
       }
     }
   }
+
+  console.log(conn.listeners());
 
   conn.on('data', function (data) {
     console.log(data);
